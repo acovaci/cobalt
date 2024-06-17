@@ -1,6 +1,6 @@
 import { Curve, Scale } from "./types";
 
-import Color from "./types";
+import { Color } from "./types";
 
 export const getContrast = (background: Color, foreground: Color): number => {
     return background.contrastAPCA(foreground);
@@ -17,6 +17,7 @@ export function getColorDimension(
     color: Color,
     dimension: "hue" | "saturation" | "lightness",
 ) {
+    color = new Color(color);
     color = color.to("hsluv");
 
     switch (dimension) {
@@ -34,7 +35,7 @@ export function hexToColor(hex: string): Color {
 }
 
 export function colorToHex(color: Color): string {
-    return color.toString();
+    return `${color.to("srgb").toString({ format: "hex" })}`;
 }
 
 export const readableColor = (color: string): Color => {

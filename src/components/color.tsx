@@ -134,15 +134,11 @@ export function Color({
                 </Box>
 
                 <Box as="code" sx={{ fontFamily: "mono", fontSize: 1 }}>
-                    {hexToColor(hex)
-                        .to("srgb")
-                        .display({ format: "rgba", alpha: 1 })}
+                    {hex}
                 </Box>
 
                 <Box as="code" sx={{ fontFamily: "mono", fontSize: 1 }}>
-                    {hexToColor(hex)
-                        .to("srgb")
-                        .display({ format: "hsla", alpha: 1 })}
+                    {hex}
                 </Box>
 
                 <Button

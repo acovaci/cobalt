@@ -14,29 +14,35 @@ import { routePrefix } from "../constants";
 import { useGlobalState } from "../global-state";
 import { colorToHex, getColor, hexToColor, mix, readableColor } from "../utils";
 
-import Color from "./types";
+import { Color } from "../types";
 
 const Wrapper = styled.div<{ backgroundColor: string }>`
-    --color-text: ${props => readableColor(props.backgroundColor).toString()};
+    --color-text: ${props => colorToHex(readableColor(props.backgroundColor))};
     --color-background: ${props => props.backgroundColor};
     --color-background-secondary: ${props =>
-        mix(
-            readableColor(props.backgroundColor),
-            hexToColor(props.backgroundColor),
-            0.9,
-        ).toString()};
+        colorToHex(
+            mix(
+                readableColor(props.backgroundColor),
+                hexToColor(props.backgroundColor),
+                0.9,
+            ),
+        )};
     --color-background-secondary-hover: ${props =>
-        mix(
-            readableColor(props.backgroundColor),
-            hexToColor(props.backgroundColor),
-            0.85,
-        ).toString()};
+        colorToHex(
+            mix(
+                readableColor(props.backgroundColor),
+                hexToColor(props.backgroundColor),
+                0.85,
+            ),
+        )};
     --color-border: ${props =>
-        mix(
-            readableColor(props.backgroundColor),
-            hexToColor(props.backgroundColor),
-            0.75,
-        ).toString()};
+        colorToHex(
+            mix(
+                readableColor(props.backgroundColor),
+                hexToColor(props.backgroundColor),
+                0.75,
+            ),
+        )};
 
     display: grid;
     grid-template-columns: 300px 1fr;

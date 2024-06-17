@@ -11,7 +11,7 @@ import { routePrefix } from "../constants";
 import { useGlobalState } from "../global-state";
 import { colorToHex, getColor } from "../utils";
 
-import Color from "./types";
+import { Color } from "../types";
 
 const ranges = {
     hue: { min: 0, max: 360 },

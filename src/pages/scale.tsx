@@ -628,7 +628,11 @@ export function Scale({
                                 {[
                                     {
                                         name: "bg",
-                                        hex: palette.backgroundColor,
+                                        hex:
+                                            typeof palette.backgroundColor ===
+                                            "string"
+                                                ? palette.backgroundColor
+                                                : "white",
                                         contrast: getContrast(
                                             hexToColor(palette.backgroundColor),
                                             hexToColor(focusedHex || ""),

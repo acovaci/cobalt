@@ -19,7 +19,7 @@ import { IconButton } from "../components/button";
 import { routePrefix } from "../constants";
 import { useGlobalState } from "../global-state";
 import { colorToHex, getColor, hexToColor, mix, readableColor } from "../utils";
-import Color from "./types";
+import { Color } from "../types";
 
 export function Index(props: RouteComponentProps) {
     const [state, send] = useGlobalState();
@@ -97,9 +97,9 @@ export function Index(props: RouteComponentProps) {
                                     // border: "1px solid",
                                     // borderColor: "border.default",
                                     overflow: "hidden",
-                                    color: readableColor(
-                                        palette.backgroundColor,
-                                    ).toString(),
+                                    color: colorToHex(
+                                        readableColor(palette.backgroundColor),
+                                    ),
                                     backgroundColor: palette.backgroundColor,
                                     height: "100%",
                                 }}
@@ -120,9 +120,11 @@ export function Index(props: RouteComponentProps) {
                                                 sx={{
                                                     display: "flex",
                                                     flexDirection: "column",
-                                                    color: readableColor(
-                                                        palette.backgroundColor,
-                                                    ).toString(),
+                                                    color: colorToHex(
+                                                        readableColor(
+                                                            palette.backgroundColor,
+                                                        ),
+                                                    ),
                                                     backgroundColor:
                                                         palette.backgroundColor,
                                                     height: "100%",
@@ -179,26 +181,41 @@ export function Index(props: RouteComponentProps) {
                                     });
                                 }}
                                 sx={{
-                                    "--color-text": readableColor(
-                                        palette.backgroundColor,
-                                    ).toString(),
+                                    "--color-text": colorToHex(
+                                        readableColor(palette.backgroundColor),
+                                    ),
                                     "--color-background":
                                         palette.backgroundColor,
-                                    "--color-background-secondary": mix(
-                                        readableColor(palette.backgroundColor),
-                                        hexToColor(palette.backgroundColor),
-                                        0.9,
-                                    ).toString(),
-                                    "--color-background-secondary-hover": mix(
-                                        readableColor(palette.backgroundColor),
-                                        hexToColor(palette.backgroundColor),
-                                        0.85,
-                                    ).toString(),
-                                    "--color-border": mix(
-                                        readableColor(palette.backgroundColor),
-                                        hexToColor(palette.backgroundColor),
-                                        0.75,
-                                    ).toString(),
+                                    "--color-background-secondary": colorToHex(
+                                        mix(
+                                            readableColor(
+                                                palette.backgroundColor,
+                                            ),
+                                            hexToColor(palette.backgroundColor),
+                                            0.9,
+                                        ),
+                                    ),
+                                    "--color-background-secondary-hover":
+                                        colorToHex(
+                                            mix(
+                                                readableColor(
+                                                    palette.backgroundColor,
+                                                ),
+                                                hexToColor(
+                                                    palette.backgroundColor,
+                                                ),
+                                                0.85,
+                                            ),
+                                        ),
+                                    "--color-border": colorToHex(
+                                        mix(
+                                            readableColor(
+                                                palette.backgroundColor,
+                                            ),
+                                            hexToColor(palette.backgroundColor),
+                                            0.75,
+                                        ),
+                                    ),
                                     position: "absolute",
                                     right: 3,
                                     bottom: "12px",
