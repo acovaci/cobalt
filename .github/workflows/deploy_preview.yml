@@ -20,4 +20,3 @@ jobs:
       install: yarn
       build: yarn build:preview
       output_dir: build
-
