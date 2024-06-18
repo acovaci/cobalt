@@ -5,7 +5,6 @@ import {
     XCircleIcon,
 } from "@primer/octicons-react";
 import { Box, ButtonGroup, Text } from "@primer/react";
-import { Link, navigate, RouteComponentProps } from "@reach/router";
 import React from "react";
 import { Button, IconButton } from "../components/button";
 import { Color } from "../components/color";
@@ -15,7 +14,6 @@ import { Select } from "../components/select";
 import { Separator } from "../components/separator";
 import { SidebarPanel } from "../components/sidebar-panel";
 import { VStack, ZStack } from "../components/stack";
-import { routePrefix } from "../constants";
 import { colorToEvent, useGlobalState } from "../global-state";
 import { Curve } from "../types";
 import {
@@ -27,17 +25,17 @@ import {
     getRange,
     hexToColor,
 } from "../utils";
+import { Link, redirect, useParams } from "react-router-dom";
 
-export function Scale({
-    paletteId = "",
-    scaleId = "",
-}: React.PropsWithChildren<
-    RouteComponentProps<{ paletteId: string; scaleId: string }>
->) {
+export function Scale() {
+    const params = useParams();
+    const paletteId = params["paletteId"]!;
+    const scaleId = params["scaleId"]!;
+
     const [selectedIndex, setIndex] = React.useState("0");
     const [state, send] = useGlobalState();
-    const palette = state.context.palettes[paletteId];
-    const scale = palette.scales[scaleId];
+    const palette = state.context.palettes[paletteId]!;
+    const scale = palette.scales[scaleId]!;
     // TODO: allow resizing
     const [visibleCurves, setVisibleCurves] = React.useState({
         hue: true,
@@ -346,7 +344,7 @@ export function Scale({
                                         key={i}
                                         as={Link}
                                         aria-label={`Go to ${currentScale.name} scale`}
-                                        to={`${routePrefix}/local/${paletteId}/scale/${currentScale.id}`}
+                                        to={`/local/${paletteId}/scale/${currentScale.id}`}
                                         replace={true}
                                         sx={{
                                             width: "100%",
@@ -425,7 +423,7 @@ export function Scale({
                                     paletteId,
                                     scaleId,
                                 });
-                                navigate(`${routePrefix}/local/${paletteId}`);
+                                redirect(`/local/${paletteId}`);
                             }}
                         >
                             Delete scale

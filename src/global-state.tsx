@@ -16,7 +16,7 @@ import {
     lerp,
     getColorDimension,
 } from "./utils";
-import { routePrefix } from "./constants";
+import { redirect } from "react-router-dom";
 
 const GLOBAL_STATE_KEY = "global_state";
 
@@ -211,7 +211,7 @@ const machine = Machine<MachineContext, MachineEvent>({
                     curves: {},
                 };
 
-                navigate(`${routePrefix}/local/${paletteId}`);
+                redirect(`/local/${paletteId}`);
             }),
         },
         DELETE_PALETTE: {

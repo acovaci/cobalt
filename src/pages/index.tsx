@@ -11,17 +11,16 @@ import {
     IconButton as PrimerIconButton,
     Label,
     Link as PrimerLink,
-    StyledOcticon,
+    Octicon,
     Text,
 } from "@primer/react";
-import { Link, RouteComponentProps } from "@reach/router";
 import { IconButton } from "../components/button";
-import { routePrefix } from "../constants";
 import { useGlobalState } from "../global-state";
 import { colorToHex, getColor, hexToColor, mix, readableColor } from "../utils";
 import { Color } from "../types";
+import { Link } from "react-router-dom";
 
-export function Index(props: RouteComponentProps) {
+export function Index() {
     const [state, send] = useGlobalState();
     return (
         <div>
@@ -56,7 +55,7 @@ export function Index(props: RouteComponentProps) {
                         }}
                     >
                         GitHub
-                        <StyledOcticon
+                        <Octicon
                             icon={LinkExternalIcon}
                             sx={{ marginLeft: 1 }}
                         />
@@ -87,7 +86,7 @@ export function Index(props: RouteComponentProps) {
                         <li key={palette.id} style={{ position: "relative" }}>
                             <Box
                                 as={Link}
-                                to={`${routePrefix}/local/${palette.id}`}
+                                to={`/local/${palette.id}`}
                                 p={3}
                                 sx={{
                                     display: "grid",

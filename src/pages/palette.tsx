@@ -1,6 +1,5 @@
 import { MarkGithubIcon } from "@primer/octicons-react";
 import { Box, Text, Label } from "@primer/react";
-import { Link, navigate, RouteComponentProps } from "@reach/router";
 import React from "react";
 import styled from "styled-components";
 import { Button, IconButton } from "../components/button";
@@ -10,11 +9,11 @@ import { Input } from "../components/input";
 import { Separator } from "../components/separator";
 import { SidebarPanel } from "../components/sidebar-panel";
 import { HStack, VStack } from "../components/stack";
-import { routePrefix } from "../constants";
 import { useGlobalState } from "../global-state";
 import { colorToHex, getColor, hexToColor, mix, readableColor } from "../utils";
 
 import { Color } from "../types";
+import { Link, Outlet, redirect, useParams } from "react-router-dom";
 
 const Wrapper = styled.div<{ backgroundColor: string }>`
     --color-text: ${props => colorToHex(readableColor(props.backgroundColor))};
@@ -63,10 +62,9 @@ const Main = styled.main`
     }
 `;
 
-export function Palette({
-    paletteId = "",
-    children,
-}: React.PropsWithChildren<RouteComponentProps<{ paletteId: string }>>) {
+export function Palette() {
+    const paletteId = useParams()["paletteId"]!;
+
     const [state, send] = useGlobalState();
     const palette = state.context.palettes[paletteId];
 
@@ -74,7 +72,7 @@ export function Palette({
         return (
             <div style={{ padding: 16 }}>
                 <p style={{ marginTop: 0 }}>Palette not found</p>
-                <Link to={`${routePrefix}/`}>Go home</Link>
+                <Link to={"/"}>Go home</Link>
             </div>
         );
     }
@@ -93,7 +91,7 @@ export function Palette({
                 }}
             >
                 <Link
-                    to={`${routePrefix}/`}
+                    to={"/"}
                     style={{
                         color: "inherit",
                         textDecoration: "none",
@@ -270,7 +268,7 @@ export function Palette({
                                 send({ type: "DELETE_PALETTE", paletteId });
 
                                 // Navigate to home page after deleting a palette
-                                navigate(`${routePrefix}/`);
+                                redirect("/");
                             }}
                         >
                             Delete palette
@@ -403,7 +401,9 @@ export function Palette({
                     </VStack>
                 </SidebarPanel>
             </div>
-            <Main>{children}</Main>
+            <Main>
+                <Outlet />
+            </Main>
         </Wrapper>
     );
 }

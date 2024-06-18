@@ -1,5 +1,3 @@
-import { Link, navigate, RouteComponentProps } from "@reach/router";
-import React from "react";
 import { ApplyEasingFunction } from "../components/apply-easing-function";
 import { Button } from "../components/button";
 import { CurveEditor } from "../components/curve-editor";
@@ -7,11 +5,14 @@ import { Input } from "../components/input";
 import { Separator } from "../components/separator";
 import { SidebarPanel } from "../components/sidebar-panel";
 import { VStack, ZStack } from "../components/stack";
-import { routePrefix } from "../constants";
+
 import { useGlobalState } from "../global-state";
 import { colorToHex, getColor } from "../utils";
 
 import { Color } from "../types";
+import React from "react";
+import { redirectTo } from "@gatsbyjs/reach-router";
+import { Link, redirect, useParams } from "react-router-dom";
 
 const ranges = {
     hue: { min: 0, max: 360 },
@@ -19,10 +20,11 @@ const ranges = {
     lightness: { min: 0, max: 100 },
 };
 
-export function Curve({
-    paletteId = "",
-    curveId = "",
-}: RouteComponentProps<{ paletteId: string; curveId: string }>) {
+export function Curve() {
+    const params = useParams();
+    const paletteId = params.paletteId!;
+    const curveId = params.curveId!;
+
     const [state, send] = useGlobalState();
     const palette = state.context.palettes[paletteId];
     const curve = palette.curves[curveId];
@@ -151,7 +153,7 @@ export function Curve({
                                     paletteId,
                                     curveId,
                                 });
-                                navigate(`${routePrefix}/local/${paletteId}`);
+                                redirect(`/local/${paletteId}`);
                             }}
                         >
                             Delete curve
@@ -264,7 +266,7 @@ export function Curve({
                         {scales.map(scale => (
                             <Link
                                 key={scale.id}
-                                to={`${routePrefix}/local/${paletteId}/scale/${scale.id}`}
+                                to={`/local/${paletteId}/scale/${scale.id}`}
                                 style={{
                                     color: "inherit",
                                     fontSize: 14,

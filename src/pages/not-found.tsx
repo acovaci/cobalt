@@ -1,12 +1,10 @@
-import { Link, RouteComponentProps } from "@reach/router";
-import React from "react";
-import { routePrefix } from "../constants";
+import { Link } from "react-router-dom";
 
-export function NotFound(props: RouteComponentProps) {
+export function NotFound() {
     return (
         <div style={{ padding: 16 }}>
             <p style={{ marginTop: 0 }}>Page not found</p>
-            <Link to={`${routePrefix}/`}>Go home</Link>
+            <Link to={"/"}>Go home</Link>
         </div>
     );
 }
